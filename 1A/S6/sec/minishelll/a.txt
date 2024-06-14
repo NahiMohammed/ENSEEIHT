@@ -1,0 +1,414 @@
+#include <stdio.h>    /* entrées sorties */
+#include <unistd.h>   /* pimitives de base : fork, ...*/
+#include <stdlib.h>   /* exit */
+#include <sys/wait.h> /* wait */
+#include <signal.h>   /* opérations sur les signaux */
+#include <string.h> 
+#include "readcmd.h"
+#include <sys/types.h>
+#include <fcntl.h>
+#include <errno.h>
+
+#define MAX_JOBS 100
+
+// ID du processus en avant-plan du minishell
+pid_t foreground_pid = 0;
+
+// Structure pour représenter un job
+struct job {
+    int id; // Identifiant du job
+    pid_t pid; // PID du processus associé au job
+    char *command; // Ligne de commande du job
+    int active; // Indicateur d'activité du job (1 = actif, 0 = suspendu)
+};
+
+// Tableau de jobs
+struct job jobs[MAX_JOBS];
+int num_jobs = 0; // Nombre de jobs actuels
+
+// Fonction pour ajouter un job à la liste des jobs
+void add_job(pid_t pid, char *cmdline) {
+    struct job new_job;
+    new_job.id = num_jobs + 1;
+    new_job.pid = pid;
+    new_job.command = strdup(cmdline);
+    new_job.active = 1;
+    jobs[num_jobs] = new_job;
+    num_jobs++;
+}
+
+/* ------------------------FONCTIONS POUR GERER LA LISTE DES JOBS-----------------------------------------*/
+
+
+// Fonction pour supprimer un job de la liste des jobs
+void remove_job(int id) {
+    int i, j;
+    for (i = 0; i < num_jobs; i++) {
+        if (jobs[i].id == id) {
+            free(jobs[i].command);
+            for (j = i; j < num_jobs - 1; j++) {
+                jobs[j] = jobs[j + 1];
+            }
+            num_jobs--;
+            break;
+        }
+    }
+}
+
+// Fonction pour afficher la liste des jobs
+void list_jobs() {
+    if (num_jobs!=0){
+    int i;
+    for (i = 0; i < num_jobs; i++) {
+        printf("[%d] %d %s\t%s\n", jobs[i].id, jobs[i].pid, jobs[i].active ? "actif" : "suspendu", jobs[i].command);
+    }
+} else {printf("AAA");}}
+
+// Fonction pour suspendre un job
+void suspend_job(int id) {
+    int i;
+    for (i = 0; i < num_jobs; i++) {
+        if (jobs[i].id == id) {
+            if (jobs[i].active) {
+                kill(jobs[i].pid, SIGSTOP);
+                jobs[i].active = 0;
+                printf("Job suspendu : [%d] %s\n", jobs[i].id, jobs[i].command);
+            } else {
+                printf("Le job est déjà suspendu : [%d] %s\n", jobs[i].id, jobs[i].command);
+            }
+            break;
+        }
+    }
+}
+
+
+
+// Fonction pour mettre un job en premier plan (foreground)
+void foreground_job(int id) {
+    int i;
+    for (i = 0; i < num_jobs; i++) {
+        if (jobs[i].id == id) {
+            if (!jobs[i].active) {
+                jobs[i].active = 1;
+                kill(jobs[i].pid, SIGCONT);
+            }
+            int status;
+            foreground_pid = jobs[i].pid;
+            waitpid(jobs[i].pid, &status, WUNTRACED);
+            foreground_pid = 0;
+            if (WIFSTOPPED(status)) {
+                jobs[i].active = 0;
+                printf("Job suspendu en premier plan : [%d] %s\n", jobs[i].id, jobs[i].command); 
+            } else {
+                remove_job(jobs[i].id);
+            }
+            break;
+        }
+    }
+}
+
+// Fonction pour mettre un job en arrière-plan (background)
+void background_job(int id) {
+    int i;
+    for (i = 0; i < num_jobs; i++) {
+        if (jobs[i].id == id) {
+            if (!jobs[i].active) {
+                jobs[i].active = 1;
+                kill(jobs[i].pid, SIGCONT);
+            }
+            printf("Job en arrière-plan : [%d] %s\n", jobs[i].id, jobs[i].command);
+            break;
+        }
+    }
+}
+/*-----------------------------------------------------------------------------------------------------*/
+
+
+// Gestionnaire du signal SIGCHLD
+
+
+void sigchld_handler(){
+    int pid, wstatus ;
+    do {
+        pid = (int) waitpid(-1, &wstatus, WNOHANG | WUNTRACED | WCONTINUED);
+        if (pid == -1 && errno != ECHILD) {
+            perror("waitpid");
+            exit(EXIT_FAILURE);
+        } else if (pid > 0){
+        if (WIFEXITED(wstatus) | WIFSIGNALED(wstatus)) {
+            // Le processus fils s'est terminé ou a été tué par un signal
+            int i;
+            for (i = 0; i < num_jobs; i++) {
+                if (jobs[i].pid == pid) {
+                    remove_job(jobs[i].id);
+                    break;
+                }
+            }
+        } else if (WIFSTOPPED(wstatus)) {
+            // Le processus fils a été suspendu par un signal
+            int i;
+            for (i = 0; i < num_jobs; i++) {
+                if (jobs[i].pid == pid) {
+                    jobs[i].active = 0;
+                    break;
+                }
+            }
+        } else if (WIFCONTINUED(wstatus)) {
+            // Le processus fils a été repris après avoir été suspendu
+            int i;
+            for (i = 0; i < num_jobs; i++) {
+                if (jobs[i].pid == pid) {
+                    jobs[i].active = 1;
+                    break;
+                }
+            }
+        }
+    }        
+    } while(pid > 0);
+}
+
+
+// Gestionnaire du signal SIGTSTP
+void sigtstp_handler() {
+    if (foreground_pid != 0) {
+        kill(foreground_pid, SIGTSTP );
+        printf("Le processus en avant-plan a été suspendu par Ctrl-Z\n");
+        int i;
+            for (i = 0; i < num_jobs; i++) {
+                if (jobs[i].pid == foreground_pid) {
+                    jobs[i].active = 0;
+                    break;
+                }
+            }
+    }
+}
+
+// Gestionnaire du signal SIGINT
+void sigint_handler() {
+    if (foreground_pid != 0) {
+        kill(foreground_pid, SIGINT);
+        printf("Le processus en avant-plan a été interrompu par Ctrl-C\n");
+        int i;
+            for (i = 0; i < num_jobs; i++) {
+                if (jobs[i].pid == foreground_pid) {
+                    remove_job(jobs[i].id);
+                    break;
+                }
+            }
+    }
+}
+
+
+
+int count_commands(struct cmdline *cmd) {
+    int count = 0;
+    if (cmd != NULL && cmd->seq != NULL) {
+        while (cmd->seq[count] != NULL) {
+            count++;
+        }
+    }
+    return count;
+}
+
+
+
+
+int main() {
+    // Configuration du gestionnaire de signal pour SIGCHLD
+    signal(SIGCHLD,sigchld_handler);
+    // Configuration du gestionnaire de signal pour SIGINT
+    signal(SIGINT,sigint_handler);
+    // Configuration du gestionnaire de signal pour SIGTSTP
+struct sigaction sa;
+    memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = sigtstp_handler;
+    sigaction(SIGTSTP , &sa, NULL);
+    
+    //boucle principale 
+    while (1) {
+        printf(">>> ");  // Affichage du prompt
+
+        struct cmdline *cmd = readcmd();  // Lecture de la commande
+        int n=count_commands(cmd);
+        // Vérification si une commande a été saisie
+        if (cmd != NULL) {
+            // Vérification si une erreur s'est produite lors de la lecture de la commande
+            if (cmd->err != NULL) {
+                printf("Erreur de syntaxe : %s\n", cmd->err);
+            } else {
+                // Vérification si la commande est "exit"
+                if (strcmp(cmd->seq[0][0], "exit") == 0) {
+                    // Libération de la mémoire de la structure cmdline
+                    //freecmd(cmd);
+                    break;  // Sortie de la boucle while pour quitter le shell
+                }
+                // Vérification si la commande est "cd"
+                else if (strcmp(cmd->seq[0][0], "cd") == 0) {
+                    // Vérification si l'argument du "cd" est présent
+                    if (cmd->seq[0][1] != NULL) {
+                        if (chdir(cmd->seq[0][1]) == -1) {
+                            perror("Erreur : impossible de changer de repertoire\n");
+                        }
+                    } else {
+                        if (chdir(getenv("HOME")) == -1) {
+                            printf("Erreur : impossible de changer de repertoire\n");
+                        }
+                    }
+                } else if (strcmp(cmd->seq[0][0], "lj") == 0) {
+                    // Commande "lj" - List jobs
+                    list_jobs();
+                } else if (strcmp(cmd->seq[0][0], "sj") == 0) {
+                    // Commande "sj" - Stop job
+                    if (cmd->seq[0][1] != NULL) {
+                        int id = atoi(cmd->seq[0][1]);
+                        suspend_job(id);
+                    } else {
+                        printf("Usage : sj <id>\n");
+                    }
+                } else if (strcmp(cmd->seq[0][0], "bg") == 0) {
+                    // Commande "bg" - Background job
+                    if (cmd->seq[0][1] != NULL) {
+                        int id = atoi(cmd->seq[0][1]);
+                        background_job(id);
+                    } else {
+                        printf("Usage : bg <id>\n");
+                    }
+                } else if (strcmp(cmd->seq[0][0], "fg") == 0) {
+                    // Commande "fg" - Foreground job
+                    if (cmd->seq[0][1] != NULL) {
+                        int id = atoi(cmd->seq[0][1]);
+                        foreground_job(id);
+                    } else {
+                        printf("Usage : fg <id>\n");
+                    }
+                } else {
+                    // Exécution séquentielle des commandes	
+                    
+                    int i=0;
+                    int input_fd = STDIN_FILENO;  // Descripteur de fichier d'entrée standard
+                    int output_fd = STDOUT_FILENO;  // Descripteur de fichier de sortie standard
+                    int pipe_fds[n-1][2];  // Descripteurs de fichier pour le tube
+                    
+                    //configuration des tubes 
+                    
+                    for (int j = 0; j < n - 1; j++) {
+                        if (pipe(pipe_fds[j]) == -1) {                          
+                            perror("erreur lors de la creation des Pipelines");
+                            exit(EXIT_FAILURE);
+                        }
+                    }
+                    
+                    
+                    while (i<n) {
+                        
+                        //creation des processus fils 
+                        int pid_fils=fork();
+                        // Gestion des redirections d'entrée et de sortie
+                        if (cmd->in != NULL) {
+                            input_fd = open(cmd->in, O_RDONLY);
+                            if (input_fd == -1) {
+                            perror("Erreur lors de l'ouverture du fichier d'entrée");
+                            exit(EXIT_FAILURE);
+                            }
+                        }
+
+                        if (cmd->out != NULL) {
+                            output_fd = open(cmd->out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+                            if (output_fd == -1) {
+                            perror("Erreur lors de l'ouverture du fichier de sortie");
+                            exit(EXIT_FAILURE);
+                            }
+                        }
+                        // Gestion de l'erreur du fork
+                        if (pid_fils == -1) {
+                            perror("Erreur lors du fork");
+                            exit(EXIT_FAILURE);
+                        } 
+                                                
+                        else if (pid_fils == 0) {
+                            // Code du processus fils
+                         
+                       signal(SIGTSTP,SIG_DFL);
+                       signal(SIGINT,SIG_DFL);
+                         
+                         
+                         // Redirection de l'entrée standard (<)                        
+                         if (i==0) {
+                             if (input_fd != STDIN_FILENO){
+                                 if (dup2(input_fd, STDIN_FILENO) == -1) {
+                                     perror("Erreur lors de la redirection de l'entrée standard");
+                                     exit(EXIT_FAILURE);
+                                 }
+                             close(input_fd);
+                             }
+                         }
+                        // Redirection de la sortie standard (>)
+                        if (i==(n-1)) {
+                             if (output_fd != STDOUT_FILENO){
+                                 if (dup2(output_fd, STDOUT_FILENO) == -1) {
+                                     perror("Erreur lors de la redirection de l'entrée standard");
+                                     exit(EXIT_FAILURE);
+                                 }
+                             close(output_fd);
+                             }
+                         } 
+                       
+                       // Redirection des sorties et des entrees des processus intermediaires 
+                        
+                       if (i > 0) {
+                           close(pipe_fds[i - 1][1]); // Fermer l'extrémité d'écriture inutilisée du tube précédent
+                           dup2(pipe_fds[i - 1][0], STDIN_FILENO); // Rediriger l'entrée standard depuis le tube précédent
+                           close(pipe_fds[i - 1][0]); // Fermer l'extrémité de lecture du tube précédent
+                       }
+
+                       
+                       if (i < n - 1) {
+                           close(pipe_fds[i][0]); // Fermer l'extrémité de lecture inutilisée du tube actuel
+                           dup2(pipe_fds[i][1], STDOUT_FILENO); // Rediriger la sortie standard vers le tube actuel
+                           close(pipe_fds[i][1]); // Fermer l'extrémité d'écriture du tube actuel
+                       } 
+
+                       execvp(cmd->seq[i][0], cmd->seq[i]);
+                       perror("Erreur lors de l'exécution de la commande");
+                       exit(EXIT_FAILURE);
+                        } else {
+                            // Code du processus shell
+                             // Fermer les extrémités inutilisées du tube dans le père : les tubes ne sont pas destiné au pere 
+                            if (i > 0) {
+                                close(pipe_fds[i - 1][0]); // Fermer l'extrémité de lecture du tube précédent
+                            }
+                            if (i < n-1) {
+                                close(pipe_fds[i][1]); // Fermer l'extrémité d'écriture du tube actuel
+                            }
+                            
+                            if (cmd->backgrounded != NULL) {
+                                printf("Job lancé en arrière-plan : [%d] %s\n", num_jobs+1, cmd->seq[i][0]);
+                                add_job(pid_fils, cmd->seq[i][0]);
+                            } else {
+                                int status;
+                                foreground_pid=pid_fils;
+                                waitpid(pid_fils, &status, WUNTRACED);
+                                if (WIFSTOPPED(status)) {
+                                    printf("Job suspendu en premier plan : [%d] %s\n", num_jobs+1, cmd->seq[i][0]);
+                                } else {
+                                    remove_job(num_jobs);
+                                }
+                            }
+                            
+                        }
+                       
+                        i++;
+                    }
+                }
+            }
+
+            // Libération de la mémoire de la structure cmdline
+            //freecmd(cmd);  //free me signal des probleme lors de la compilation
+        } else {
+            printf("Erreur lors de la lecture de la commande\n");
+           
+        }
+    } 
+    return 0;
+    
+}
