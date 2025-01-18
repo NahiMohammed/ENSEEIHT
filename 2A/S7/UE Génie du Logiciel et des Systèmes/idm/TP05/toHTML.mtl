@@ -1,0 +1,18 @@
+[comment encoding = UTF-8 /]
+[module toDot('http://simplepdl')]
+
+[template public processToDOT(aProcess : Process)]
+[comment @main/]
+[file ('output3.dot', false, 'UTF-8')]
+
+digraph developpement {
+Conception -> RedactionDoc [ label = f2f ] 
+Conception -> RedactionDoc 
+Conception -> Programmation 
+Conception -> RedactionTests 
+Programmation -> RedactionTests 
+
+}
+[/file]
+[/template]
+
