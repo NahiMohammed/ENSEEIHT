@@ -1,0 +1,18 @@
+\* Problem: Assemblage (PL)*\
+
+
+
+Maximize
+MargeTotale: 700 C + 300 S 
+
+Subject To
+MaximumDeTravail  : 6 C + 5 S <= 6000
+LimiteDeBatteries : C <= 700
+LimiteDuParking   : 2.5 C + S <= 1500
+
+C>=0
+S>=0
+
+End
+
+

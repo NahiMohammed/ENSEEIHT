@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="petrinet" nsURI="http://petrinet" nsPrefix="petrinet">
+  <eClassifiers xsi:type="ecore:EClass" name="PetriNet">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="petrielements" upperBound="-1"
+        eType="#//PetriElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PetriElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="petrinet" eType="#//PetriNet"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Arc" eSuperTypes="#//PetriElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="linkType" eType="#//ArcType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="price" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="predecessor" lowerBound="1"
+        eType="#//Node"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="successor" lowerBound="1"
+        eType="#//Node"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Node" eSuperTypes="#//PetriElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Place" eSuperTypes="#//Node">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="token" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//Node"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="ArcType">
+    <eLiterals name="normalArc" literal="normalArc"/>
+    <eLiterals name="readArc" value="1"/>
+  </eClassifiers>
+</ecore:EPackage>

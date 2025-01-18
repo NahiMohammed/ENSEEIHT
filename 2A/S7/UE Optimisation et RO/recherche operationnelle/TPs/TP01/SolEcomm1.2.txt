@@ -1,0 +1,105 @@
+Problem:    PbEcomm1
+Rows:       23
+Columns:    18 (6 integer, 6 binary)
+Non-zeros:  78
+Status:     INTEGER OPTIMAL
+Objective:  CoutTotal = 368 (MINimum)
+
+   No.   Row name        Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 MinFrais[M1,D1]
+                                   0                          -0 
+     2 MinFrais[M1,D2]
+                                  -1                          -0 
+     3 MinFrais[M2,D1]
+                                   0                          -0 
+     4 MinFrais[M2,D2]
+                                  -1                          -0 
+     5 MinFrais[M3,D1]
+                                  -1                          -0 
+     6 MinFrais[M3,D2]
+                                   0                          -0 
+     7 MajFrais[M1,D1]
+                                   0                          -0 
+     8 MajFrais[M1,D2]
+                                -1.5                          -0 
+     9 MajFrais[M2,D1]
+                                   0                          -0 
+    10 MajFrais[M2,D2]
+                                  -1                          -0 
+    11 MajFrais[M3,D1]
+                                  -1                          -0 
+    12 MajFrais[M3,D2]
+                                   0                          -0 
+    13 stockdisponible[P1,M1]
+                                   1                         2.5 
+    14 stockdisponible[P1,M2]
+                                   0                           1 
+    15 stockdisponible[P1,M3]
+                                   2                           2 
+    16 stockdisponible[P2,M1]
+                                   1                           1 
+    17 stockdisponible[P2,M2]
+                                   2                           2 
+    18 stockdisponible[P2,M3]
+                                   0                           1 
+    19 QteVerifieePourUneDemande[P1,D1]
+                                  -2            -2             = 
+    20 QteVerifieePourUneDemande[P1,D2]
+                                  -1            -1             = 
+    21 QteVerifieePourUneDemande[P2,D1]
+                                   0            -0             = 
+    22 QteVerifieePourUneDemande[P2,D2]
+                                  -3            -3             = 
+    23 CoutTotal                 368                             
+
+   No. Column name       Activity     Lower bound   Upper bound
+------ ------------    ------------- ------------- -------------
+     1 Quantites[P1,M1,D1]
+                                   0             0               
+     2 Quantites[P2,M1,D1]
+                                   0             0               
+     3 Quantites[P1,M1,D2]
+                                   1             0               
+     4 Quantites[P2,M1,D2]
+                                   1             0               
+     5 Quantites[P1,M2,D1]
+                                   0             0               
+     6 Quantites[P2,M2,D1]
+                                   0             0               
+     7 Quantites[P1,M2,D2]
+                                   0             0               
+     8 Quantites[P2,M2,D2]
+                                   2             0               
+     9 Quantites[P1,M3,D1]
+                                   2             0               
+    10 Quantites[P2,M3,D1]
+                                   0             0               
+    11 Quantites[P1,M3,D2]
+                                   0             0               
+    12 Quantites[P2,M3,D2]
+                                   0             0               
+    13 FraisExpedition[D1,M1]
+                    *              0             0             1 
+    14 FraisExpedition[D2,M1]
+                    *              1             0             1 
+    15 FraisExpedition[D1,M2]
+                    *              0             0             1 
+    16 FraisExpedition[D2,M2]
+                    *              1             0             1 
+    17 FraisExpedition[D1,M3]
+                    *              1             0             1 
+    18 FraisExpedition[D2,M3]
+                    *              0             0             1 
+
+Integer feasibility conditions:
+
+KKT.PE: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+KKT.PB: max.abs.err = 0.00e+00 on row 0
+        max.rel.err = 0.00e+00 on row 0
+        High quality
+
+End of output

@@ -1,0 +1,82 @@
+# GLPK model file created by SUN for RO teaching
+
+############################### Model ###############################
+
+############################### Sets ###############################
+
+set Magasins;
+set Fluides;
+set Demandes;
+
+################### Variables ###################
+
+var Quantites{i in Fluides, j in Magasins, k in Demandes} >= 0;
+
+var FraisExpedition{k in Demandes, j in Magasins}, binary;
+
+################### Constants: Data to load #########################
+
+param Couts{i in Magasins, j in Fluides};
+param StocksMagasin{i in Magasins, j in Fluides};
+param DemandesFluide{i in Demandes, j in Fluides};
+param FraisFixe{i in Demandes, j in Magasins};
+param FraisVariable{i in Demandes, j in Magasins};
+
+################### Constraints ###################
+
+subject to MinFrais{j in Magasins, i in Demandes}:
+    FraisExpedition[i, j] <= sum{k in Fluides} Quantites[k, j, i];
+
+subject to MajFrais{j in Magasins, d in Demandes}:
+    sum{i in Fluides} Quantites[i, j, d] <= sum{i in Fluides} StocksMagasin[j, i] * FraisExpedition[d, j];
+
+subject to stockdisponible{j in Fluides, k in Magasins}:
+    sum{i in Demandes} Quantites[j, k, i] <= StocksMagasin[k, j];
+
+subject to QteVerifieePourUneDemande{j in Fluides, i in Demandes}:
+    DemandesFluide[i, j] = sum{k in Magasins} Quantites[j, k, i];
+
+###### Objective ######
+
+minimize CoutTotal:
+    sum{i in Fluides, j in Magasins, k in Demandes} Quantites[i, j, k] * (Couts[j, i] + FraisVariable[k, j]) +
+    sum{m in Magasins, d in Demandes} FraisFixe[d, m] * FraisExpedition[d, m];
+
+#default data
+
+data;
+set Magasins :=
+    M1
+    M2
+    M3;
+
+set Fluides :=
+    P1
+    P2;
+
+set Demandes :=
+    D1
+    D2;
+
+param DemandesFluide : P1 P2 :=
+    D1  2 0
+    D2  1 3;
+
+param Couts : P1 P2 :=
+    M1  1  1
+    M2  2  3
+    M3  3  2;
+
+param StocksMagasin : P1 P2 :=
+    M1 2.5 1
+    M2 1 2
+    M3 2 1;
+
+param FraisFixe : M1 M2 M3 :=
+    D1  110 90 100
+    D2  110 90 100;
+
+param FraisVariable : M1 M2 M3 :=
+    D1  10 1 5
+    D2 2 20 10;
+end;

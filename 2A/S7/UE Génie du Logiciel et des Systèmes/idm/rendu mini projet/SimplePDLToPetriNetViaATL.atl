@@ -1,0 +1,150 @@
+-- @path SimplePDL=/idm.MiniProject/SimplePDL.ecore
+-- @path PetriNet=/idm.MiniProject/PetriNet.ecore
+
+module SimplePDLToPetriNetViaATL;
+create OUT : PetriNet from IN : SimplePDL;
+
+helper context SimplePDL!ProcessElement 
+def: getProcess(): SimplePDL!Process =
+	SimplePDL!Process.allInstances() -> select(p | p.processElements -> includes(self))
+			-> asSequence() -> first();
+
+-- Traduire un Process en un petri
+rule Process2petri {
+	from
+		process: SimplePDL!Process
+	to
+		petrinet: PetriNet!PetriNet (
+			name <- process.name
+		)
+}
+
+-- Traduire une WorkDefinition en Petrielements
+rule WorkDefinition2petri {
+	from
+		wd: SimplePDL!WorkDefinition
+	to
+		-- Créez les places, les transitions et les arcs associées à la WorkDefinition wd
+		
+		--PLACES
+		place_ready: PetriNet!Place (
+			name <- wd.name + '_ready',
+			token <- 1,
+			petrinet <- wd.getProcess()
+		),
+		place_started: PetriNet!Place (
+			name <- wd.name + '_started',
+			token <- 0,
+			petrinet <- wd.getProcess()
+		),
+		place_running: PetriNet!Place (
+			name <- wd.name + '_running',
+			token <- 0,
+			petrinet <- wd.getProcess()
+		),
+		place_finished: PetriNet!Place (
+			name <- wd.name + '_finished',
+			token <- 0,
+			petrinet <- wd.getProcess()
+		),
+		-- TRANSITIONS
+		transition_start: PetriNet!Transition (
+			name <- wd.name + '_start',
+			petrinet <- wd.getProcess()
+		),
+		transition_finish: PetriNet!Transition (
+			name <- wd.name + '_finish',
+			petrinet <- wd.getProcess()
+		),
+		-- ARCS 
+		arcReadyToStart: PetriNet!Arc (
+			predecessor <- place_ready,
+			successor <- transition_start,
+			price <- 1,
+			petrinet <- wd.getProcess()
+		),
+		arcStartToStarted: PetriNet!Arc (
+			predecessor <- transition_start,
+			successor <- place_started,
+			price <- 1,
+			petrinet <- wd.getProcess()
+		),
+		arcStarttoRunning: PetriNet!Arc (
+			predecessor <- transition_start,
+			successor <- place_running,
+			price <- 1,
+			petrinet <- wd.getProcess()
+		),
+		arcRunningToFinish: PetriNet!Arc (
+			predecessor <- place_running,
+			successor <- transition_finish,
+			price <- 1,
+			petrinet <- wd.getProcess()
+		),
+		arcFinishToFinished: PetriNet!Arc (
+			predecessor <- transition_finish,
+			successor <- place_finished,
+			price <- 1,
+			petrinet <- wd.getProcess()
+		)
+}
+
+-- Traduire une WorkSequence en un arc sur le réseau de Petri
+rule WorkSequence2petri {
+	from
+		ws: SimplePDL!WorkSequence
+	to
+	    arcSeq: PetriNet!Arc (
+			predecessor <- if (ws.linkType = #startToStart) or (ws.linkType =
+					#startToFinish) then
+					thisModule.resolveTemp(ws.predecessor, 'place_started')
+				else
+					thisModule.resolveTemp(ws.predecessor, 'place_finished')
+				endif,
+			successor <- if (ws.linkType = #finishToStart) or (ws.linkType =
+					#finishToFinish) then
+					thisModule.resolveTemp(ws.successor, 'transition_finish')
+				else
+					thisModule.resolveTemp(ws.successor, 'transition_start')
+				endif,
+		
+		price <- 1,
+		linkType <- #readArc,
+		petrinet <- ws.successor.getProcess()
+		)
+		
+}
+
+-- Traduire une Ressource en une place
+rule Ressource2petri {
+	from
+		res: SimplePDL!Resource
+	to
+		place_res: PetriNet!Place (
+			name <- res.name,
+			token <- res.quantity,
+			petrinet <- res.getProcess()
+		)
+}
+
+-- Traduire une RessourceUsed en un arc
+rule RessourceUsed2petri {
+	from
+		res_used: SimplePDL!ResourceUse
+	to
+		emprunter_ressource: PetriNet!Arc(
+			predecessor <- res_used.resource,
+			successor <- thisModule.resolveTemp(res_used.workdefinition, 'transition_start'),
+			price <- res_used.OccurenceUsed,
+			linkType <- #normalArc,
+			petrinet <- res_used.resource.getProcess()
+		),
+			
+		liberer_ressource: PetriNet!Arc(
+			successor <- res_used.resource,
+			predecessor <- thisModule.resolveTemp(res_used.workdefinition, 'transition_finish'),
+			price <- res_used.OccurenceUsed,
+			linkType <- #normalArc,
+			petrinet <- res_used.resource.getProcess()
+		)
+}

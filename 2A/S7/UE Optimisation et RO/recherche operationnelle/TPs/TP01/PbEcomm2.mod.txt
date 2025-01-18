@@ -1,0 +1,55 @@
+#  GLPK model file created by SUN for RO teaching
+
+
+###############################  Model ###############################
+
+
+
+###############################  Sets  ###############################
+
+set Noeuds; 
+
+ 
+
+################### Variables ###################
+
+var x{i in Noeuds, j in Noeuds}, binary;  # Variable binaire indiquant si l'arc (i, j) est utilisé 1 ou non 0
+var u{i in Noeuds} integer, >= 1, <= card(Noeuds);
+
+###################  Constants: Data to load   #########################
+
+param distance{i in Noeuds, j in Noeuds}; 
+
+################### Constraints ###################
+
+s.t. SortirUneseuleFoisDeChaqueNoeud{i in Noeuds}:
+    sum{j in Noeuds: j != i} x[i, j] = 1;
+    
+s.t. VisiterUneSeulFoisChaqueNoued{j in Noeuds}:
+    sum{i in Noeuds: i != j} x[i, j] = 1;
+
+s.t. EviterLesCycles{i in Noeuds, j in Noeuds: i != j and i <> 'ALPHA' and j <> 'ALPHA'}:
+    (u[i] - u[j] + card(Noeuds) * x[i, j]) <= (card(Noeuds) - 1);
+
+
+###### Objective ######
+
+minimize TotalDistance:
+    sum{i in Noeuds, j in Noeuds: j != i} distance[i, j] * x[i, j];
+    
+#end
+    
+# Données
+data;
+
+set Noeuds := ALPHA C1 C2 C3 C4 C5;
+
+param distance: ALPHA  C1  C2  C3  C4  C5 :=
+         ALPHA      0  1   1  10  12  12
+         C1         1  0   1   8  10  11
+         C2         1  1   0   8  11  10
+         C3        10  8   8   0   1   1
+         C4        12 10  11   1   0   1
+         C5        12 11  10   1   1   0;
+
+end;

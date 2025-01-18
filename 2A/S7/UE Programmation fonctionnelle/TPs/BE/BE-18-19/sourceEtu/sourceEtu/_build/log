@@ -1,0 +1,105 @@
+# dune utop
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Workspace root: "/home/nahi/Bureau/programmation
+# fonctionnelle/BE/BE-18-19/sourceEtu/sourceEtu"
+# Auto-detected concurrency: 10
+$ /home/nahi/.opam/4.11.0/bin/ocamlc.opt -config > /tmp/dune_862088_output
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Release
+#  ; merlin = true
+#  ; for_host = None
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; ocaml_bin = External "/home/nahi/.opam/4.11.0/bin"
+#  ; ocaml = Ok External "/home/nahi/.opam/4.11.0/bin/ocaml"
+#  ; ocamlc = External "/home/nahi/.opam/4.11.0/bin/ocamlc.opt"
+#  ; ocamlopt = Ok External "/home/nahi/.opam/4.11.0/bin/ocamlopt.opt"
+#  ; ocamldep = Ok External "/home/nahi/.opam/4.11.0/bin/ocamldep.opt"
+#  ; ocamlmklib = Ok External "/home/nahi/.opam/4.11.0/bin/ocamlmklib.opt"
+#  ; installed_env =
+#      map
+#        { "INSIDE_DUNE" :
+#            "/home/nahi/Bureau/programmation fonctionnelle/BE/BE-18-19/sourceEtu/sourceEtu/_build/default"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; findlib_paths = [ External "/home/nahi/.opam/4.11.0/lib" ]
+#  ; ocaml_config =
+#      { version = "4.11.0"
+#      ; standard_library_default = "/home/nahi/.opam/4.11.0/lib/ocaml"
+#      ; standard_library = "/home/nahi/.opam/4.11.0/lib/ocaml"
+#      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
+#      ; ccomp_type = "cc"
+#      ; c_compiler = "gcc"
+#      ; ocamlc_cflags = [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fPIC" ]
+#      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; ocamlopt_cflags =
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fPIC" ]
+#      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; bytecomp_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fPIC"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; bytecomp_c_libraries = [ "-lm"; "-lpthread" ]
+#      ; native_c_compiler =
+#          [ "gcc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-fPIC"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ; "-D_REENTRANT"
+#          ]
+#      ; native_c_libraries = [ "-lm" ]
+#      ; native_pack_linker = [ "ld"; "-r"; "-o" ]
+#      ; cc_profile = []
+#      ; architecture = "amd64"
+#      ; model = "default"
+#      ; int_size = 63
+#      ; word_size = 64
+#      ; system = "linux"
+#      ; asm = [ "as" ]
+#      ; asm_cfi_supported = true
+#      ; with_frame_pointers = false
+#      ; ext_exe = ""
+#      ; ext_obj = ".o"
+#      ; ext_asm = ".s"
+#      ; ext_lib = ".a"
+#      ; ext_dll = ".so"
+#      ; os_type = "Unix"
+#      ; default_executable_name = "a.out"
+#      ; systhread_supported = true
+#      ; host = "x86_64-pc-linux-gnu"
+#      ; target = "x86_64-pc-linux-gnu"
+#      ; profiling = false
+#      ; flambda = false
+#      ; spacetime = false
+#      ; safe_string = true
+#      ; exec_magic_number = "Caml1999X028"
+#      ; cmi_magic_number = "Caml1999I028"
+#      ; cmo_magic_number = "Caml1999O028"
+#      ; cma_magic_number = "Caml1999A028"
+#      ; cmx_magic_number = "Caml1999Y028"
+#      ; cmxa_magic_number = "Caml1999Z028"
+#      ; ast_impl_magic_number = "Caml1999M028"
+#      ; ast_intf_magic_number = "Caml1999N028"
+#      ; cmxs_magic_number = "Caml1999D028"
+#      ; cmt_magic_number = "Caml1999T028"
+#      ; natdynlink_supported = true
+#      ; supports_shared_libraries = true
+#      ; windows_unicode = false
+#      }
+#  ; instrument_with = []
+#  }
+$ (cd _build/.sandbox/8e3bcaa34d352163330776ad7bba3a00/default && .ppx/bfcab61e6a21ecf6d2f80029fc1ef484/ppx.exe --cookie 'inline_tests="disabled"' --cookie 'library-name="be"' -o tests.pp.ml --impl tests.ml -corrected-suffix .ppx-corrected -diff-cmd - -dump-ast)
+$ (cd _build/default && /home/nahi/.opam/4.11.0/bin/ocamlc.opt -w -40 -g -a -o be.cma .be.objs/byte/be.cmo .be.objs/byte/be__Boa.cmo .be.objs/byte/be__Tests.cmo)
+$ (cd _build/default && /home/nahi/.opam/4.11.0/bin/ocamlc.opt -w -40 -w -24 -g -bin-annot -I .utop/.utop.eobjs/byte -I /home/nahi/.opam/4.11.0/lib/base -I /home/nahi/.opam/4.11.0/lib/base/base_internalhash_types -I /home/nahi/.opam/4.11.0/lib/base/caml -I /home/nahi/.opam/4.11.0/lib/base/shadow_stdlib -I /home/nahi/.opam/4.11.0/lib/bytes -I /home/nahi/.opam/4.11.0/lib/findlib -I /home/nahi/.opam/4.11.0/lib/jane-street-headers -I /home/nahi/.opam/4.11.0/lib/lambda-term -I /home/nahi/.opam/4.11.0/lib/logs -I /home/nahi/.opam/4.11.0/lib/lwt -I /home/nahi/.opam/4.11.0/lib/lwt/unix -I /home/nahi/.opam/4.11.0/lib/lwt_react -I /home/nahi/.opam/4.11.0/lib/mew -I /home/nahi/.opam/4.11.0/lib/mew_vi -I /home/nahi/.opam/4.11.0/lib/ocaml/compiler-libs -I /home/nahi/.opam/4.11.0/lib/ocaml/threads -I /home/nahi/.opam/4.11.0/lib/ocplib-endian -I /home/nahi/.opam/4.11.0/lib/ocplib-endian/bigstring -I /home/nahi/.opam/4.11.0/lib/ppx_compare/runtime-lib -I /home/nahi/.opam/4.11.0/lib/ppx_enumerate/runtime-lib -I /home/nahi/.opam/4.11.0/lib/ppx_hash/runtime-lib -I /home/nahi/.opam/4.11.0/lib/ppx_inline_test/config -I /home/nahi/.opam/4.11.0/lib/ppx_inline_test/runtime-lib -I /home/nahi/.opam/4.11.0/lib/ppx_sexp_conv/runtime-lib -I /home/nahi/.opam/4.11.0/lib/react -I /home/nahi/.opam/4.11.0/lib/result -I /home/nahi/.opam/4.11.0/lib/sexplib0 -I /home/nahi/.opam/4.11.0/lib/time_now -I /home/nahi/.opam/4.11.0/lib/trie -I /home/nahi/.opam/4.11.0/lib/uchar -I /home/nahi/.opam/4.11.0/lib/utop -I /home/nahi/.opam/4.11.0/lib/uucp -I /home/nahi/.opam/4.11.0/lib/uuseg -I /home/nahi/.opam/4.11.0/lib/uutf -I /home/nahi/.opam/4.11.0/lib/xdg -I /home/nahi/.opam/4.11.0/lib/zed -I .be.objs/byte -no-alias-deps -o .utop/.utop.eobjs/byte/dune__exe__Utop.cmo -c -impl .utop/utop.ml-gen)
+$ (cd _build/default && /home/nahi/.opam/4.11.0/bin/ocamlc.opt -w -40 -w -24 -g -o .utop/utop.bc /home/nahi/.opam/4.11.0/lib/ocaml/compiler-libs/ocamlcommon.cma /home/nahi/.opam/4.11.0/lib/ocaml/compiler-libs/ocamlbytecomp.cma /home/nahi/.opam/4.11.0/lib/ocaml/compiler-libs/ocamltoplevel.cma /home/nahi/.opam/4.11.0/lib/findlib/findlib.cma /home/nahi/.opam/4.11.0/lib/findlib/findlib_top.cma /home/nahi/.opam/4.11.0/lib/logs/logs.cma /home/nahi/.opam/4.11.0/lib/lwt/lwt.cma /home/nahi/.opam/4.11.0/lib/logs/logs_lwt.cma /home/nahi/.opam/4.11.0/lib/ocaml/unix.cma /home/nahi/.opam/4.11.0/lib/ocaml/bigarray.cma /home/nahi/.opam/4.11.0/lib/ocplib-endian/ocplib_endian.cma /home/nahi/.opam/4.11.0/lib/ocplib-endian/bigstring/ocplib_endian_bigstring.cma /home/nahi/.opam/4.11.0/lib/ocaml/threads/threads.cma /home/nahi/.opam/4.11.0/lib/lwt/unix/lwt_unix.cma -I /home/nahi/.opam/4.11.0/lib/lwt/../stublibs /home/nahi/.opam/4.11.0/lib/react/react.cma /home/nahi/.opam/4.11.0/lib/lwt_react/lwt_react.cma /home/nahi/.opam/4.11.0/lib/result/result.cma /home/nahi/.opam/4.11.0/lib/uutf/uutf.cma /home/nahi/.opam/4.11.0/lib/uucp/uucp.cma /home/nahi/.opam/4.11.0/lib/uuseg/uuseg.cma /home/nahi/.opam/4.11.0/lib/zed/zed.cma /home/nahi/.opam/4.11.0/lib/trie/trie.cma /home/nahi/.opam/4.11.0/lib/mew/mew.cma /home/nahi/.opam/4.11.0/lib/mew_vi/mew_vi.cma /home/nahi/.opam/4.11.0/lib/lambda-term/lambda_term.cma -I /home/nahi/.opam/4.11.0/lib/lambda-term/../stublibs /home/nahi/.opam/4.11.0/lib/xdg/xdg.cma -I /home/nahi/.opam/4.11.0/lib/xdg/../stublibs /home/nahi/.opam/4.11.0/lib/utop/uTop.cma /home/nahi/.opam/4.11.0/lib/ppx_inline_test/config/inline_test_config.cma /home/nahi/.opam/4.11.0/lib/base/base_internalhash_types/base_internalhash_types.cma -I /home/nahi/.opam/4.11.0/lib/base/../stublibs /home/nahi/.opam/4.11.0/lib/base/caml/caml.cma /home/nahi/.opam/4.11.0/lib/sexplib0/sexplib0.cma /home/nahi/.opam/4.11.0/lib/base/shadow_stdlib/shadow_stdlib.cma /home/nahi/.opam/4.11.0/lib/base/base.cma -I /home/nahi/.opam/4.11.0/lib/base/../stublibs /home/nahi/.opam/4.11.0/lib/jane-street-headers/jane_street_headers.cma /home/nahi/.opam/4.11.0/lib/ppx_sexp_conv/runtime-lib/ppx_sexp_conv_lib.cma /home/nahi/.opam/4.11.0/lib/ppx_compare/runtime-lib/ppx_compare_lib.cma /home/nahi/.opam/4.11.0/lib/ppx_enumerate/runtime-lib/ppx_enumerate_lib.cma /home/nahi/.opam/4.11.0/lib/ppx_hash/runtime-lib/ppx_hash_lib.cma /home/nahi/.opam/4.11.0/lib/time_now/time_now.cma -I /home/nahi/.opam/4.11.0/lib/time_now/../stublibs /home/nahi/.opam/4.11.0/lib/ppx_inline_test/runtime-lib/ppx_inline_test_lib.cma be.cma .utop/.utop.eobjs/byte/dune__exe__Utop.cmo -linkall -warn-error -31)

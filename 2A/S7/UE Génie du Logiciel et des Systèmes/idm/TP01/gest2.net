@@ -1,0 +1,5 @@
+pl Cl1_G2_req 
+pl G2_Cl1_ack 
+pl Cl1_G2_release
+tr ack2 Cl1_G2_req -> G2_Cl1_ack
+tr release2 Cl1_G2_release -> r2_released
