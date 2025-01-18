@@ -1,0 +1,15 @@
+let widening x y = match x, y with
+  | Bot, _ -> y
+  | _, Bot -> x
+  | Itv (a, b), Itv (c, d) ->
+    let e = if leq_minf a c then a else None in
+    let f = if leq_pinf d b then b else None in
+    mk_itv e fi = 0; j = 0;
+while (i < 10) {
+  if (i <= 0) {
+    j = 1;
+    ++i;
+  } else {
+    ++i;
+  }
+}
