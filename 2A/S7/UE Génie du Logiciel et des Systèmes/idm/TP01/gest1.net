@@ -1,9 +1,0 @@
-pl Cl1_G1_req 
-pl G1_Cl1_ack 
-pl Cl1_G1_release
-tr ack1 Cl1_G1_req -> G1_Cl1_ack
-tr release1 Cl1_G1_release -> r1_released
-
-
-
-
