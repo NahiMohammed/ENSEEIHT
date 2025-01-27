@@ -1,0 +1,121 @@
+@prefix : <https://w3id.org/cluedo4KG/onto#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://w3id.org/cluedo4KG/onto> .
+
+<https://w3id.org/cluedo4KG/onto> rdf:type owl:Ontology ;
+                                  rdfs:comment "Cette ontologie a été créée pour être utilisée dans le tutoriel SPARQLUEDO faisant partie de la ressource CLUEDO4KG"@fr, "This ontology was created for use in the SPARQLUEDO tutorial, which is part of the CLUEDO4KG resource."@en;
+                                  <http://creativecommons.org/ns#license> <http://creativecommons.org/licenses/by/4.0/> ;
+                        <http://purl.org/dc/terms/creator> "Camille Pradel" ,
+                                                           "Nathalie Hernandez";
+                        <http://purl.org/dc/terms/issued> "2012-12-01"^^xsd:date ;
+                        <http://purl.org/vocab/vann/preferredNamespacePrefix> "cluedonto";
+                        <http://purl.org/vocab/vann/preferredNamespaceUri> : ; .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://w3id.org/cluedo4KG/onto#aPourPieceVoisine
+:aPourPieceVoisine rdf:type owl:ObjectProperty ,
+                            owl:SymmetricProperty ;
+                   rdfs:domain :Piece ;
+                   rdfs:range :Piece ;
+                   rdfs:label "a pour pièce voisine"@fr ,
+                              "has as neighbour room"@en .
+
+
+###  https://w3id.org/cluedo4KG/onto#maisonContientPiece
+:maisonContientPiece rdf:type owl:ObjectProperty ;
+                     owl:inverseOf :pieceDansMaison ;
+                     rdfs:domain :Maison ;
+                     rdfs:range :Piece ;
+                     rdfs:label "house contains room"@en ,
+                                "maison contient pièce"@fr .
+
+
+###  https://w3id.org/cluedo4KG/onto#objetDansPiece
+:objetDansPiece rdf:type owl:ObjectProperty ;
+                owl:inverseOf :pieceContientObjet ;
+                rdfs:label "object in room"@en ,
+                           "objet dans pièce"@fr .
+
+
+###  https://w3id.org/cluedo4KG/onto#personneDansPiece
+:personneDansPiece rdf:type owl:ObjectProperty ;
+                   owl:inverseOf :pieceContientPersonne ;
+                   rdfs:label "person in room"@en ,
+                              "personne dans pièce"@fr .
+
+
+###  https://w3id.org/cluedo4KG/onto#pieceContientObjet
+:pieceContientObjet rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Piece ;
+                    rdfs:range :Objet ;
+                    rdfs:label "pièce contient objet"@fr ,
+                               "room contains object"@en .
+
+
+###  https://w3id.org/cluedo4KG/onto#pieceContientPersonne
+:pieceContientPersonne rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Piece ;
+                       rdfs:range :Personne ;
+                       rdfs:label "pièce contient personne"@fr ,
+                                  "room contains person"@en .
+
+
+###  https://w3id.org/cluedo4KG/onto#pieceDansMaison
+:pieceDansMaison rdf:type owl:ObjectProperty ;
+                 rdfs:label "pièce dans maison"@fr ,
+                            "room in house"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://w3id.org/cluedo4KG/onto#estVivant
+:estVivant rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Personne ;
+           rdfs:range xsd:boolean ;
+           rdfs:comment "indicates whether a person is alive (True) or dead (False)"@en ,
+                        "indique si une personne est vivante (True) ou morte (False)"@fr ;
+           rdfs:label "est vivant"@fr ,
+                      "is alive"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://w3id.org/cluedo4KG/onto#Maison
+:Maison rdf:type owl:Class ;
+        rdfs:comment "house"@en ;
+        rdfs:label "maison"@fr .
+
+
+###  https://w3id.org/cluedo4KG/onto#Objet
+:Objet rdf:type owl:Class ;
+       rdfs:subClassOf owl:Thing ;
+       rdfs:label "object"@en ,
+                  "objet"@fr .
+
+
+###  https://w3id.org/cluedo4KG/onto#Personne
+:Personne rdf:type owl:Class ;
+          rdfs:subClassOf owl:Thing ;
+          rdfs:label "person"@en ,
+                     "personne"@fr .
+
+
+###  https://w3id.org/cluedo4KG/onto#Piece
+:Piece rdf:type owl:Class ;
+       rdfs:subClassOf owl:Thing ;
+       rdfs:label "pièce"@fr ,
+                  "room"@en .
+
+
+###  Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi

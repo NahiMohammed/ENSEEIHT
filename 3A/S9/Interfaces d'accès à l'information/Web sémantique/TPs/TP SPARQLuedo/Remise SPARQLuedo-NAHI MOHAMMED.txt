@@ -1,0 +1,685 @@
+------------------------------------------------------------------------------------------------------
+NAHI Mohammed 
+Remise SPARQLuedo
+------------------------------------------------------------------------------------------------------
+-------------------------------------------------Question1--------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?roomLabel 
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room.
+    ?room rdfs:label ?roomLabel.
+    FILTER (LANG(?roomLabel) = "en")
+}
+-------------------------------------------------
+roomLabel
+living room
+office
+bedroom
+corridor
+bathroom
+toilet
+kitchen
+dining room
+entrance hall
+-------------------------------------------------Question2--------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT (COUNT(?room) AS ?numberOfRooms)
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+}
+-------------------------------------------------
+numberOfRooms
+9
+-------------------------------------------------Question3--------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT (COUNT(DISTINCT ?person) AS ?numberOfperson)
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?person .
+}
+-------------------------------------------------
+numberOfperson
+12
+-------------------------------------------------Question4--------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?victimLabel
+WHERE {
+    ?victim a :Personne;
+              :estVivant false.
+    ?victim rdfs:label ?victimLabel. 
+}
+-------------------------------------------------
+victimLabel
+Bud Luck
+
+-------------------------------------------------Question5--------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?suspectList
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?suspect .
+    ?suspect rdf:type :Personne ;
+             :estVivant true .
+    ?suspect rdfs:label ?suspectList.
+}
+-------------------------------------------------
+suspectList
+Dustin Time
+Anita Bath
+Paige Turner
+Sue Flay
+Claire Voyan
+Will Bury
+Mike Sir
+Mike God
+Rick O'Shea
+Sue Yu
+Ben Dover
+-------------------------------------------------Question6--------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?victimRoom 
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?victim .
+    ?victim rdf:type :Personne ;
+            :estVivant false .
+    ?room rdfs:label ?victimRoom .
+    FILTER (LANG(?victimRoom) = "en")
+}
+-------------------------------------------------
+victimRoom
+bedroom
+-------------------------------------------------Question7--------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+ASK {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?victim .
+    ?victim rdf:type :Personne ;
+            :estVivant false .
+    ?room :pieceContientPersonne ?otherPerson .
+    FILTER (?otherPerson != ?victim)
+}
+-------------------------------------------------
+{
+  "head" : { },
+  "boolean" : false
+}
+-------------------------------------------------Question8--------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?rooms ?persons 
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?person .
+    ?person rdf:type :Personne .
+    ?room rdfs:label ?rooms. 
+    FILTER (LANG(?rooms) = "en")
+    ?person rdfs:label ?persons. 
+}
+-------------------------------------------------
+rooms,persons
+living room,Dustin Time
+living room,Anita Bath
+office,Paige Turner
+office,Sue Flay
+bedroom,Bud Luck
+bathroom,Claire Voyan
+toilet,Will Bury
+toilet,Mike Sir
+toilet,Mike God
+dining room,Rick O'Shea
+dining room,Sue Yu
+entrance hall,Ben Dover
+-------------------------------------------------Question9--------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?rooms (COUNT(?person) AS ?personCount)
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?person .
+    ?person rdf:type :Personne .
+    ?room rdfs:label ?rooms
+    FILTER (LANG(?rooms) = "en")
+}
+GROUP BY ?rooms
+HAVING (COUNT(?person) > 0)
+-------------------------------------------------
+rooms,personCount
+living room,2
+office,2
+bedroom,1
+bathroom,1
+toilet,3
+dining room,2
+entrance hall,1
+-------------------------------------------------Question10-------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?rooms
+WHERE {
+    {
+        SELECT ?room (COUNT(?person) AS ?personCount)
+        WHERE {
+            kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+            ?room :pieceContientPersonne ?person .
+            ?person rdf:type :Personne .
+        }
+        GROUP BY ?room
+        HAVING (COUNT(?person) >= 2)
+    }
+    ?room rdfs:label ?rooms.
+    FILTER (LANG(?rooms) = "en")
+}
+-------------------------------------------------
+rooms
+living room
+office
+toilet
+dining room
+-------------------------------------------------Question11-------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT ?emptyrooms
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    FILTER NOT EXISTS {
+        ?room :pieceContientPersonne ?person .
+        ?person rdf:type :Personne .
+    }
+    ?room rdfs:label ?emptyrooms.
+    FILTER (LANG(?emptyrooms) = "en")
+               
+}
+-------------------------------------------------
+emptyrooms
+corridor
+kitchen
+
+-------------------------------------------------Question12-------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?suspects
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?suspect .
+    ?suspect a :Personne;
+             :estVivant true.
+    ?suspect rdfs:label ?suspects.
+    BIND(STRBEFORE(?suspects, " ") AS ?firstName) 
+    BIND(STRAFTER(?suspects, " ") AS ?lastName)  
+    FILTER (
+        STRENDS(LCASE(?firstName), "n") || STRENDS(LCASE(?lastName), "n")
+    )
+}
+-------------------------------------------------
+suspects
+Dustin Time
+Claire Voyan
+Ben Dover
+
+-------------------------------------------------Question13-------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT ?innocentPerson
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?innocent .
+    ?innocent rdf:type :Personne ;
+             :estVivant true .
+    ?innocent rdfs:label ?innocentPerson.
+    BIND(STRBEFORE(?innocentPerson, " ") AS ?firstName) 
+    BIND(STRAFTER(?innocentPerson, " ") AS ?lastName)  
+    FILTER (
+        STRENDS(LCASE(?firstName), "n") || STRENDS(LCASE(?lastName), "n")
+    )
+
+        ?victim rdf:type :Personne ;
+                :estVivant false .
+        ?victimRoom :pieceContientPersonne ?victim .
+        ?victimRoom :aPourPieceVoisine ?neighborRoom .
+        FILTER(?room = ?neighborRoom)
+    
+}
+-------------------------------------------------
+innocentPerson
+Claire Voyan
+
+-------------------------------------------------Question14-------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT ?listSuspects
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?suspect .
+    ?suspect rdf:type :Personne ;
+             :estVivant true .
+    ?suspect rdfs:label ?listSuspects.
+    BIND(STRBEFORE(?listSuspects, " ") AS ?firstName) 
+    BIND(STRAFTER(?listSuspects, " ") AS ?lastName)  
+    FILTER (
+        STRENDS(LCASE(?firstName), "n") || STRENDS(LCASE(?lastName), "n")
+    )
+     FILTER NOT EXISTS {
+        ?victim rdf:type :Personne ;
+                :estVivant false .
+        ?victimRoom :pieceContientPersonne ?victim .
+        ?victimRoom :aPourPieceVoisine ?neighborRoom .
+        FILTER(?room = ?neighborRoom)
+    }
+}
+-------------------------------------------------
+listSuspects
+Dustin Time
+Ben Dover
+-------------------------------------------------Question15-------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT (COUNT(?object) AS ?objectCount)
+WHERE {
+    <https://w3id.org/cluedo4KG/KG#LaMaisonDuMeurtre> :maisonContientPiece ?room .
+    ?room :pieceContientObjet ?object .
+    ?object rdf:type :Objet .
+}
+-------------------------------------------------
+objectCount
+10
+-------------------------------------------------Question16-------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT ?NotmurderWeapon
+WHERE {
+    ?victim rdf:type :Personne ;
+            :estVivant false .
+    ?victimRoom :pieceContientPersonne ?victim .
+    ?victimRoom :pieceContientObjet ?object .
+    ?object rdf:type :Objet .
+    ?object rdfs:label ?NotmurderWeapon
+    FILTER (LANG(?NotmurderWeapon) = "en")
+}
+-------------------------------------------------
+NotmurderWeapon
+pillow
+dagger
+
+-------------------------------------------------Question17-------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+
+SELECT DISTINCT ?murderWeapon
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientObjet ?object .
+    ?object rdf:type :Objet .
+
+    FILTER NOT EXISTS {
+        ?room :pieceContientPersonne ?person .
+        ?person rdf:type :Personne .
+    }
+    ?object rdfs:label ?murderWeapon
+    FILTER (LANG(?murderWeapon) = "en")
+
+    
+}
+-------------------------------------------------
+murderWeapon
+ice pick
+
+-------------------------------------------------Question18-------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT ?murderer
+WHERE {
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?suspect .
+    ?suspect rdf:type :Personne ;
+             :estVivant true .
+    ?suspect rdfs:label ?murderer.
+    BIND(STRBEFORE(?murderer, " ") AS ?firstName) 
+    BIND(STRAFTER(?murderer, " ") AS ?lastName)  
+    FILTER (
+        STRENDS(LCASE(?firstName), "n") || STRENDS(LCASE(?lastName), "n")
+    )
+     FILTER NOT EXISTS {
+        ?victim rdf:type :Personne ;
+                :estVivant false .
+        ?victimRoom :pieceContientPersonne ?victim .
+        ?victimRoom :aPourPieceVoisine ?neighborRoom .
+        FILTER(?room = ?neighborRoom)
+    }
+     FILTER NOT EXISTS {
+        ?room :pieceContientObjet ?object .
+        ?object rdf:type :Objet .
+    }
+}
+-------------------------------------------------
+murderer
+Ben Dover
+
+-------------------------------------------------Question19-------------------------------------------
+-------------------------------------------------Question20-------------------------------------------
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+SELECT DISTINCT ?IRIresource
+WHERE {
+
+    SERVICE <https://dbpedia.org/sparql> {
+      ?IRIresource dbo:alias ?alias .
+      FILTER(LANG(?alias) = "en")
+      FILTER(CONTAINS(?alias, "TBL"))
+      }
+}
+-------------------------------------------------
+IRIresource
+http://dbpedia.org/resource/Tim_Berners-Lee
+-------------------------------------------------Question21-------------------------------------------
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+SELECT DISTINCT (STRBEFORE(?brotherName, " ") AS ?firstName)
+WHERE {
+
+    SERVICE <https://dbpedia.org/sparql> {
+      # Find parents
+    dbr:Tim_Berners-Lee dbo:parent ?parent .
+
+    # Find siblings 
+    ?parent dbo:child ?brother .
+
+    # Exclude Tim Berners-Lee     
+    FILTER(?brother != dbr:Tim_Berners-Lee)
+
+    ?brother rdfs:label ?brotherName .
+    FILTER(LANG(?brotherName) = "en")
+      }
+}
+-------------------------------------------------
+firstName
+Mike
+
+-------------------------------------------------Question22-------------------------------------------
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+SELECT DISTINCT ?accomplices
+WHERE {
+    SERVICE <https://dbpedia.org/sparql> {
+        dbr:Tim_Berners-Lee dbo:parent ?parent .
+        ?parent dbo:child ?brother .
+        FILTER(?brother != dbr:Tim_Berners-Lee)
+        ?brother rdfs:label ?brotherName .
+        FILTER(LANG(?brotherName) = "en")
+        BIND(STRBEFORE(?brotherName, " ") AS ?firstName)
+    }
+
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?accomplice .
+    ?accomplice rdfs:label ?accomplices.
+    BIND(STRBEFORE(?accomplices, " ") AS ?firstName1) 
+
+    # Comparer l'IRI de l'acolyte avec le prénom trouvé
+    FILTER(CONTAINS(STR(?firstName1), ?firstName))
+}
+-------------------------------------------------
+accomplices
+Mike Sir
+Mike God
+-------------------------------------------------Question23-------------------------------------------
+-------------------------------------------------Question24-------------------------------------------
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+
+
+SELECT DISTINCT ?wikidataIRI
+WHERE {
+  # Partie DBpedia
+    SERVICE <https://dbpedia.org/sparql> {
+        dbr:Tim_Berners-Lee rdfs:label ?rawName .
+        FILTER(LANG(?rawName) = "en")  
+        
+    }
+  BIND( STRLANG(str(?rawName), "en") AS ?name )
+  SERVICE <https://query.wikidata.org/sparql> {
+    ?wikidataIRI rdfs:label ?name . 
+    ?wikidataIRI wdt:P31 wd:Q5 .     # Vérifie que c'est un humain
+    }
+}
+
+-------------------------------------------------Question25-------------------------------------------
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT DISTINCT ?surname
+WHERE {
+  SERVICE <https://dbpedia.org/sparql> {
+      dbr:Tim_Berners-Lee rdfs:label ?rawName .
+      FILTER(LANG(?rawName) = "en")  
+  }
+  
+  BIND(STRLANG(str(?rawName), "en") AS ?name)
+
+  SERVICE <https://query.wikidata.org/sparql> {
+      ?wikidataIRI rdfs:label ?name . 
+      ?wikidataIRI wdt:P31 wd:Q5 .       
+      ?wikidataIRI wdt:P511 ?honorificPrefix .  # Récupérer le préfixe honorifique  
+      ?honorificPrefix rdfs:label ?surname .
+      FILTER(LANG(?surname) = "en")
+ 
+  }
+}
+-------------------------------------------------
+surname
+Sir
+-------------------------------------------------Question26-------------------------------------------
+
+PREFIX : <https://w3id.org/cluedo4KG/onto#>
+PREFIX kg: <https://w3id.org/cluedo4KG/KG#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX xml: <http://www.w3.org/XML/1998/namespace>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT DISTINCT ?accomplices ?HidingRoom
+WHERE {
+
+    SERVICE <https://dbpedia.org/sparql> {
+      #trouver le firstname du accomplice
+      dbr:Tim_Berners-Lee dbo:parent ?parent .
+      ?parent dbo:child ?brother .
+      FILTER(?brother != dbr:Tim_Berners-Lee)
+      ?brother rdfs:label ?brotherName .
+      FILTER(LANG(?brotherName) = "en")
+      BIND(STRBEFORE(?brotherName, " ") AS ?firstName)
+      
+  
+      dbr:Tim_Berners-Lee rdfs:label ?rawName .
+      FILTER(LANG(?rawName) = "en")  
+  }
+            
+    BIND(STRLANG(str(?rawName), "en") AS ?name)
+
+    SERVICE <https://query.wikidata.org/sparql> {
+        ?wikidataIRI rdfs:label ?name . 
+        ?wikidataIRI wdt:P31 wd:Q5 .       
+        ?wikidataIRI wdt:P511 ?honorificPrefix .  # Récupérer le préfixe honorifique  
+        ?honorificPrefix rdfs:label ?lastname .
+        FILTER(LANG(?lastname) = "en")
+    }
+ 
+    kg:LaMaisonDuMeurtre :maisonContientPiece ?room .
+    ?room :pieceContientPersonne ?accomplice .
+    ?room rdfs:label ?HidingRoom.
+    FILTER(LANG(?HidingRoom) = "en")
+    ?accomplice rdfs:label ?accomplices .
+
+    # Extraire prénom et nom de l'acolyte
+    BIND(STRBEFORE(?accomplices, " ") AS ?firstName1) 
+    BIND(STRAFTER(?accomplices, " ") AS ?lastName1)
+
+    # Vérifier la correspondance
+    FILTER(CONTAINS(STR(?firstName1), ?firstName))  # Prénom correspondant au frère
+    FILTER(CONTAINS(STR(?lastName1), ?lastname))    # Nom correspondant au préfixe honorifique
+}
+-----------------------------------------------
+accomplices,HidingRoom
+Mike Sir,toilet
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

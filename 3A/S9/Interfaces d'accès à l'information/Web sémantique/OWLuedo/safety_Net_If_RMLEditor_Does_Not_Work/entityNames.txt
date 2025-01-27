@@ -1,0 +1,26 @@
+aDensite
+decouverteApres
+estCentreDe
+estDansLieu
+estOuAEteDansLieu
+etageContientPiece
+maisonContientEtage
+organiseAutour
+pieceContientEspace
+possede
+possedeOuAPossede
+produit
+objetMou
+objetContondant
+objetTranchant
+etage
+armeAFeu
+zone
+produitLiquide
+produitEnPoudre
+Serre (pièce)
+Serre (étage)
+Ana Conda
+Bibliothèque
+1er Etage
+Omar Tyr
