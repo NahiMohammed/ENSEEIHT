@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.psFile>
+    <org.eventb.core.psStatus name="INITIALISATION/inv1/INV" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="INITIALISATION/inv2/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="INITIALISATION/inv3/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="108" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="INITIALISATION/inv4/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="108" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="INITIALISATION/inv5/INV" org.eventb.core.confidence="1000" org.eventb.core.poStamp="84" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="INITIALISATION/inv6/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="108" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="INITIALISATION/inv7/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="108" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="INITIALISATION/inv8/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="108" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="DEBUT_FRANCHISSEMENT/inv1/INV" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="DEBUT_FRANCHISSEMENT_WAGON/grd9/WD" org.eventb.core.confidence="0" org.eventb.core.poStamp="111" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="DEBUT_FRANCHISSEMENT_WAGON/inv4/INV" org.eventb.core.confidence="1000" org.eventb.core.poStamp="111" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="DEBUT_FRANCHISSEMENT_WAGON/inv8/INV" org.eventb.core.confidence="1000" org.eventb.core.poStamp="111" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="FIN_FRANCHISSEMENT_WAGON/grd10/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="FIN_FRANCHISSEMENT_WAGON/grd11/WD" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="FIN_FRANCHISSEMENT_WAGON/grd13/WD" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="FIN_FRANCHISSEMENT_WAGON/grd14/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="FIN_FRANCHISSEMENT_WAGON/inv4/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="FIN_FRANCHISSEMENT_WAGON/act3/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="MISE_A_JOUR/grd3/WD" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="MISE_A_JOUR/grd1/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="MISE_A_JOUR/grd2/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="MISE_A_JOUR/inv4/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="MISE_A_JOUR/act1/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="freiner/grd3/WD" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="freiner/grd2/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="freiner/grd4/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="freiner/grd5/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="freiner/inv1/INV" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="freiner/inv2/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="freiner/inv3/INV" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="freiner/inv4/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="freiner/act1/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="freiner/act2/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="Accelerer/grd1/WD" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="Accelerer/grd2/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="Accelerer/grd3/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="Accelerer/grd4/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="Accelerer/inv1/INV" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="Accelerer/inv2/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="Accelerer/inv3/INV" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="Accelerer/inv4/INV" org.eventb.core.confidence="0" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="Accelerer/act1/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+    <org.eventb.core.psStatus name="Accelerer/act2/WD" org.eventb.core.confidence="1000" org.eventb.core.poStamp="109" org.eventb.core.psManual="false"/>
+</org.eventb.core.psFile>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.poFile org.eventb.core.poStamp="1">
+    <org.eventb.core.poPredicateSet name="ABSHYP" org.eventb.core.poStamp="1">
+        <org.eventb.core.poIdentifier name="TRAINS" org.eventb.core.type="ℙ(TRAINS)"/>
+        <org.eventb.core.poIdentifier name="TRONCONS" org.eventb.core.type="ℙ(TRONCONS)"/>
+        <org.eventb.core.poIdentifier name="Reseau" org.eventb.core.type="ℙ(TRONCONS×TRONCONS)"/>
+        <org.eventb.core.poPredicate name="TRONCONT" org.eventb.core.predicate="Reseau∈TRONCONS ↔ TRONCONS" org.eventb.core.source="/Système de Gestion Ferroviaire/Ctx_topologie.buc|org.eventb.core.contextFile#Ctx_topologie|org.eventb.core.axiom#*"/>
+        <org.eventb.core.poPredicate name="TRONCONU" org.eventb.core.predicate="∀t1⦂TRONCONS,t2⦂TRONCONS·t1 ↦ t2∈Reseau⇒t1≠t2" org.eventb.core.source="/Système de Gestion Ferroviaire/Ctx_topologie.buc|org.eventb.core.contextFile#Ctx_topologie|org.eventb.core.axiom#+"/>
+        <org.eventb.core.poPredicate name="TRONCONV" org.eventb.core.predicate="∀tr⦂TRONCONS·tr∈TRONCONS⇒tr∈dom(Reseau)∨tr∈ran(Reseau)" org.eventb.core.source="/Système de Gestion Ferroviaire/Ctx_topologie.buc|org.eventb.core.contextFile#Ctx_topologie|org.eventb.core.axiom#,"/>
+        <org.eventb.core.poPredicate name="TRONCONW" org.eventb.core.predicate="card(TRONCONS)=10" org.eventb.core.source="/Système de Gestion Ferroviaire/Ctx_topologie.buc|org.eventb.core.contextFile#Ctx_topologie|org.eventb.core.axiom#-"/>
+    </org.eventb.core.poPredicateSet>
+    <org.eventb.core.poPredicateSet name="ALLHYP" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/Ctx_topologie_Instance.bpo|org.eventb.core.poFile#Ctx_topologie_Instance|org.eventb.core.poPredicateSet#ABSHYP" org.eventb.core.poStamp="1"/>
+</org.eventb.core.poFile>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.poFile org.eventb.core.poStamp="3">
+    <org.eventb.core.poPredicateSet name="ABSHYP" org.eventb.core.poStamp="3">
+        <org.eventb.core.poIdentifier name="TRAINS" org.eventb.core.type="ℙ(TRAINS)"/>
+        <org.eventb.core.poIdentifier name="TRONCONS" org.eventb.core.type="ℙ(TRONCONS)"/>
+        <org.eventb.core.poIdentifier name="Reseau" org.eventb.core.type="ℙ(TRONCONS×TRONCONS)"/>
+        <org.eventb.core.poPredicate name="TRONCONT" org.eventb.core.predicate="Reseau∈TRONCONS ↔ TRONCONS" org.eventb.core.source="/Système de Gestion Ferroviaire/Ctx_topologie.buc|org.eventb.core.contextFile#Ctx_topologie|org.eventb.core.axiom#*"/>
+        <org.eventb.core.poPredicate name="TRONCONU" org.eventb.core.predicate="∀t1⦂TRONCONS,t2⦂TRONCONS·t1 ↦ t2∈Reseau⇒t1≠t2" org.eventb.core.source="/Système de Gestion Ferroviaire/Ctx_topologie.buc|org.eventb.core.contextFile#Ctx_topologie|org.eventb.core.axiom#+"/>
+        <org.eventb.core.poPredicate name="TRONCONV" org.eventb.core.predicate="∀tr⦂TRONCONS·tr∈TRONCONS⇒tr∈dom(Reseau)∨tr∈ran(Reseau)" org.eventb.core.source="/Système de Gestion Ferroviaire/Ctx_topologie.buc|org.eventb.core.contextFile#Ctx_topologie|org.eventb.core.axiom#,"/>
+        <org.eventb.core.poPredicate name="TRONCONW" org.eventb.core.predicate="card(TRONCONS)=10" org.eventb.core.source="/Système de Gestion Ferroviaire/Ctx_topologie.buc|org.eventb.core.contextFile#Ctx_topologie|org.eventb.core.axiom#-"/>
+        <org.eventb.core.poIdentifier name="WAGONS" org.eventb.core.type="ℙ(WAGONS)"/>
+        <org.eventb.core.poIdentifier name="train_wagons" org.eventb.core.type="ℙ(TRAINS×ℙ(ℤ×WAGONS))"/>
+    </org.eventb.core.poPredicateSet>
+    <org.eventb.core.poSequent name="axm8/WD" org.eventb.core.accurate="true" org.eventb.core.poDesc="Well-definedness of Axiom" org.eventb.core.poStamp="3">
+        <org.eventb.core.poPredicateSet name="SEQHYP" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instancf"/>
+        <org.eventb.core.poPredicate name="SEQHYQ" org.eventb.core.predicate="finite(WAGONS)" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#1"/>
+        <org.eventb.core.poSource name="SEQHYR" org.eventb.core.poRole="DEFAULT" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#1"/>
+        <org.eventb.core.poSelHint name="SEQHYS" org.eventb.core.poSelHintFst="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#ABSHYP" org.eventb.core.poSelHintSnd="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instancf"/>
+    </org.eventb.core.poSequent>
+    <org.eventb.core.poSequent name="axm7/WD" org.eventb.core.accurate="true" org.eventb.core.poDesc="Well-definedness of Axiom" org.eventb.core.poStamp="3">
+        <org.eventb.core.poPredicateSet name="SEQHYP" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instancg"/>
+        <org.eventb.core.poPredicate name="SEQHYQ" org.eventb.core.predicate="∀tr⦂TRAINS·tr∈TRAINS⇒tr∈dom(train_wagons)∧train_wagons∈TRAINS ⇸ ℙ(ℤ × WAGONS)∧0∈dom(train_wagons(tr))∧train_wagons(tr)∈ℤ ⇸ WAGONS" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#0"/>
+        <org.eventb.core.poSource name="SEQHYR" org.eventb.core.poRole="DEFAULT" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#0"/>
+        <org.eventb.core.poSelHint name="SEQHYS" org.eventb.core.poSelHintFst="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#ABSHYP" org.eventb.core.poSelHintSnd="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instancg"/>
+    </org.eventb.core.poSequent>
+    <org.eventb.core.poSequent name="axm5/WD" org.eventb.core.accurate="true" org.eventb.core.poDesc="Well-definedness of Axiom" org.eventb.core.poStamp="3">
+        <org.eventb.core.poPredicateSet name="SEQHYP" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instanch"/>
+        <org.eventb.core.poPredicate name="SEQHYQ" org.eventb.core.predicate="∀train⦂TRAINS·train∈TRAINS⇒train∈dom(train_wagons)∧train_wagons∈TRAINS ⇸ ℙ(ℤ × WAGONS)" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#."/>
+        <org.eventb.core.poSource name="SEQHYR" org.eventb.core.poRole="DEFAULT" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#."/>
+        <org.eventb.core.poSelHint name="SEQHYS" org.eventb.core.poSelHintFst="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#ABSHYP" org.eventb.core.poSelHintSnd="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instanch"/>
+    </org.eventb.core.poSequent>
+    <org.eventb.core.poSequent name="axm6/WD" org.eventb.core.accurate="true" org.eventb.core.poDesc="Well-definedness of Axiom" org.eventb.core.poStamp="3">
+        <org.eventb.core.poPredicateSet name="SEQHYP" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instanci"/>
+        <org.eventb.core.poPredicate name="SEQHYQ" org.eventb.core.predicate="∀t1⦂TRAINS,t2⦂TRAINS·t1∈TRAINS∧t2∈TRAINS∧t1≠t2⇒t1∈dom(train_wagons)∧train_wagons∈TRAINS ⇸ ℙ(ℤ × WAGONS)∧t2∈dom(train_wagons)" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#\/"/>
+        <org.eventb.core.poSource name="SEQHYR" org.eventb.core.poRole="DEFAULT" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#\/"/>
+        <org.eventb.core.poSelHint name="SEQHYS" org.eventb.core.poSelHintFst="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#ABSHYP" org.eventb.core.poSelHintSnd="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instanci"/>
+    </org.eventb.core.poSequent>
+    <org.eventb.core.poSequent name="axm9/WD" org.eventb.core.accurate="true" org.eventb.core.poDesc="Well-definedness of Axiom" org.eventb.core.poStamp="3">
+        <org.eventb.core.poPredicateSet name="SEQHYP" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instancj"/>
+        <org.eventb.core.poPredicate name="SEQHYQ" org.eventb.core.predicate="∀train⦂TRAINS·train∈dom(train_wagons)∧train_wagons∈TRAINS ⇸ ℙ(ℤ × WAGONS)∧finite(train_wagons(train))" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#2"/>
+        <org.eventb.core.poSource name="SEQHYR" org.eventb.core.poRole="DEFAULT" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#2"/>
+        <org.eventb.core.poSelHint name="SEQHYS" org.eventb.core.poSelHintFst="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#ABSHYP" org.eventb.core.poSelHintSnd="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instancj"/>
+    </org.eventb.core.poSequent>
+    <org.eventb.core.poPredicateSet name="HYPCtx_topologie_Instancf" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#ABSHYP" org.eventb.core.poStamp="3">
+        <org.eventb.core.poPredicate name="PRD0" org.eventb.core.predicate="train_wagons∈TRAINS → (ℕ ⤔ WAGONS)" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#("/>
+    </org.eventb.core.poPredicateSet>
+    <org.eventb.core.poPredicateSet name="HYPCtx_topologie_Instancg" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instancf" org.eventb.core.poStamp="3">
+        <org.eventb.core.poPredicate name="PRD1" org.eventb.core.predicate="card(WAGONS)&gt;10" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#1"/>
+    </org.eventb.core.poPredicateSet>
+    <org.eventb.core.poPredicateSet name="HYPCtx_topologie_Instanch" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instancg" org.eventb.core.poStamp="3">
+        <org.eventb.core.poPredicate name="PRD2" org.eventb.core.predicate="∀tr⦂TRAINS·tr∈TRAINS⇒(∃wagon⦂WAGONS·train_wagons(tr)(0)=wagon)" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#0"/>
+    </org.eventb.core.poPredicateSet>
+    <org.eventb.core.poPredicateSet name="HYPCtx_topologie_Instanci" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instanch" org.eventb.core.poStamp="3">
+        <org.eventb.core.poPredicate name="PRD3" org.eventb.core.predicate="∀train⦂TRAINS·train∈TRAINS⇒(∀i⦂ℤ·i∈dom(train_wagons(train))∧i≠0⇒i − 1∈dom(train_wagons(train)))" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#."/>
+    </org.eventb.core.poPredicateSet>
+    <org.eventb.core.poPredicateSet name="HYPCtx_topologie_Instancj" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instanci" org.eventb.core.poStamp="3">
+        <org.eventb.core.poPredicate name="PRD4" org.eventb.core.predicate="∀t1⦂TRAINS,t2⦂TRAINS·t1∈TRAINS∧t2∈TRAINS∧t1≠t2⇒ran(train_wagons(t1))∩ran(train_wagons(t2))=(∅ ⦂ ℙ(WAGONS))" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#\/"/>
+    </org.eventb.core.poPredicateSet>
+    <org.eventb.core.poPredicateSet name="ALLHYP" org.eventb.core.parentSet="/Système de Gestion Ferroviaire/plus_wagon.bpo|org.eventb.core.poFile#plus_wagon|org.eventb.core.poPredicateSet#HYPCtx_topologie_Instancj" org.eventb.core.poStamp="3">
+        <org.eventb.core.poPredicate name="PRD5" org.eventb.core.predicate="∀train⦂TRAINS·card(train_wagons(train))&gt;3" org.eventb.core.source="/Système de Gestion Ferroviaire/plus_wagon.buc|org.eventb.core.contextFile#plus_wagon|org.eventb.core.axiom#2"/>
+    </org.eventb.core.poPredicateSet>
+</org.eventb.core.poFile>

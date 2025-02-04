@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.contextFile org.eventb.core.configuration="org.eventb.core.fwd;de.prob.symbolic.ctxBase" version="3">
+    <org.eventb.core.extendsContext name="'" org.eventb.core.target="plus_wagon"/>
+    <org.eventb.core.carrierSet name="(" org.eventb.core.identifier="Modes"/>
+    <org.eventb.core.axiom name="-" org.eventb.core.label="axm1" org.eventb.core.predicate="Modes  ={Mouvement_libre, Freinage,Attente}"/>
+    <org.eventb.core.constant de.prob.symbolic.symbolicAttribute="false" name="." org.eventb.core.identifier="longueur_wagon"/>
+    <org.eventb.core.axiom name="0" org.eventb.core.label="axm3" org.eventb.core.predicate="longueur_tronçon=100" org.eventb.core.theorem="true"/>
+    <org.eventb.core.constant de.prob.symbolic.symbolicAttribute="false" name="1" org.eventb.core.identifier="longueur_tronçon"/>
+    <org.eventb.core.axiom name="5" org.eventb.core.label="axm4" org.eventb.core.predicate="longueur_wagon=30"/>
+    <org.eventb.core.constant de.prob.symbolic.symbolicAttribute="false" name="6" org.eventb.core.identifier="Mouvement_libre"/>
+    <org.eventb.core.constant de.prob.symbolic.symbolicAttribute="false" name="7" org.eventb.core.identifier="Freinage"/>
+    <org.eventb.core.constant de.prob.symbolic.symbolicAttribute="false" name="8" org.eventb.core.identifier="Attente"/>
+    <org.eventb.core.constant de.prob.symbolic.symbolicAttribute="false" name="9" org.eventb.core.identifier="DeltaT"/>
+    <org.eventb.core.axiom name=":" org.eventb.core.label="axm5" org.eventb.core.predicate="DeltaT=1"/>
+    <org.eventb.core.constant de.prob.symbolic.symbolicAttribute="false" name=";" org.eventb.core.identifier="acceleration"/>
+    <org.eventb.core.axiom name="=" org.eventb.core.label="axm6" org.eventb.core.predicate="acceleration=2"/>
+    <org.eventb.core.axiom name="&gt;" org.eventb.core.label="axm7" org.eventb.core.predicate="Vmax=30"/>
+    <org.eventb.core.constant de.prob.symbolic.symbolicAttribute="false" name="?" org.eventb.core.identifier="Vmax"/>
+</org.eventb.core.contextFile>

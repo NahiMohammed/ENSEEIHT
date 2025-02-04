@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<org.eventb.core.contextFile org.eventb.core.configuration="org.eventb.core.fwd;de.prob.symbolic.ctxBase" version="3">
+    <org.eventb.core.carrierSet name="'" org.eventb.core.identifier="TRONCONS"/>
+    <org.eventb.core.carrierSet name="(" org.eventb.core.identifier="TRAINS"/>
+    <org.eventb.core.constant de.prob.symbolic.symbolicAttribute="false" name=")" org.eventb.core.identifier="Reseau"/>
+    <org.eventb.core.axiom name="*" org.eventb.core.label="axm1" org.eventb.core.predicate="Reseau ∈ TRONCONS ↔ TRONCONS"/>
+    <org.eventb.core.axiom name="+" org.eventb.core.label="axm2" org.eventb.core.predicate="∀t1, t2 · (t1 ↦ t2 ∈ Reseau ⇒ t1 ≠ t2)"/>
+    <org.eventb.core.axiom name="," org.eventb.core.label="axm3" org.eventb.core.predicate="∀tr·(tr∈TRONCONS)⇒(tr∈dom(Reseau))∨(tr∈ran(Reseau))"/>
+    <org.eventb.core.axiom name="-" org.eventb.core.label="axm4" org.eventb.core.predicate="card(TRONCONS)=10"/>
+</org.eventb.core.contextFile>
